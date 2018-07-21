@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sdu.edu.store.mapper.UserMapper">
+
+	<insert id="addUser" parameterType="sdu.edu.store.entity.User">
+		insert into user (
+			id, 
+			name, 
+			password, 
+			email,
+			mobile,
+			gender,
+			create_user,
+			create_time, 
+			modify_user,
+			modify_time,
+		) values (
+			#{id}, 
+			#{name},
+			#{password},
+			#{email},
+			#{mobile},
+			#{gender},
+			#{createUser},
+			#{createTime},
+			#{modifyUser},
+			#{modifyTime}
+		)
+	</insert>
+	<select id="findUserByName" resultType="sdu.edu.store.entity.User">
+		select 
+			id, name, password, email, mobile, gender, 
+			create_user as createUser,
+			create_time as createTime,
+			modify_user as modifyUser,
+			modify_time as modifyTime
+		from 
+			user
+		where 
+			name=#{name}
+	</select>
+	<select id="findUserByEmail" resultType="sdu.edu.store.entity.User">
+		select 
+			id, name, password, email, mobile, gender, 
+			create_user as createUser,
+			create_time as createTime,
+			modify_user as modifyUser,
+			modify_time as modifyTime
+		from 
+			user
+		where 
+			email=#{email}
+	</select>
+
+</mapper>

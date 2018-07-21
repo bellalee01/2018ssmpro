@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	 
+	<util:properties id="cfg" location="classpath:config.properties"></util:properties>
+	
+	<!-- 利用Spring容器管理數據庫連接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- 必选参数 -->
+		<property name="driverClassName" value="#{cfg.driver}"></property>
+		<property name="url" value="#{cfg.url}"></property>
+		<property name="username" value="#{cfg.username}"></property>
+		<property name="password" value="#{cfg.password}"></property>
+		<!-- 可选参数 -->
+		<property name="maxActive" value="#{cfg.maxActive}"></property>
+		<!-- ... -->
+	</bean>
+	
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+	</bean>
+	
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<property name="basePackage" value="sdu.edu.store.mapper"></property>
+	</bean>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
